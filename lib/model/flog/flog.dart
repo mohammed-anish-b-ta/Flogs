@@ -19,6 +19,31 @@ class FLog {
   FLog._();
 
   //Public Methods:-------------------------------------------------------------
+  /// logThisAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  /// @param type         the type
+  static Future<void> logThisAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    required LogLevel type,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    // prevent to write LogLevel.ALL and LogLevel.OFF to db
+    if (![LogLevel.OFF, LogLevel.ALL].contains(type)) {
+      await _logThisAsync(className, methodName, text, type, exception,
+          dataLogType, stacktrace);
+    }
+  }
+
   /// logThis
   ///
   /// Logs 'String' data along with class & function name to hourly based file
@@ -64,6 +89,26 @@ class FLog {
         dataLogType, stacktrace);
   }
 
+  /// traceAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  static Future<void> traceAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    await _logThisAsync(className, methodName, text, LogLevel.TRACE, exception,
+        dataLogType, stacktrace);
+  }
+
   /// debug
   ///
   /// Logs 'String' data along with class & function name to hourly based file
@@ -81,6 +126,26 @@ class FLog {
     StackTrace? stacktrace,
   }) async {
     _logThis(className, methodName, text, LogLevel.DEBUG, exception,
+        dataLogType, stacktrace);
+  }
+
+  /// debugAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  static Future<void> debugAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    await _logThisAsync(className, methodName, text, LogLevel.DEBUG, exception,
         dataLogType, stacktrace);
   }
 
@@ -104,6 +169,26 @@ class FLog {
         stacktrace);
   }
 
+  /// infoAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  static Future<void> infoAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    await _logThisAsync(className, methodName, text, LogLevel.INFO, exception,
+        dataLogType, stacktrace);
+  }
+
   /// warning
   ///
   /// Logs 'String' data along with class & function name to hourly based file
@@ -124,6 +209,26 @@ class FLog {
         dataLogType, stacktrace);
   }
 
+  /// warningAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  static Future<void> warningAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    await _logThisAsync(className, methodName, text, LogLevel.WARNING,
+        exception, dataLogType, stacktrace);
+  }
+
   /// error
   ///
   /// Logs 'String' data along with class & function name to hourly based file
@@ -141,6 +246,26 @@ class FLog {
     StackTrace? stacktrace,
   }) async {
     _logThis(className, methodName, text, LogLevel.ERROR, exception,
+        dataLogType, stacktrace);
+  }
+
+  /// errorAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  static Future<void> errorAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    await _logThisAsync(className, methodName, text, LogLevel.ERROR, exception,
         dataLogType, stacktrace);
   }
 
@@ -164,6 +289,26 @@ class FLog {
         dataLogType, stacktrace);
   }
 
+  /// severeAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  static Future<void> severeAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    await _logThisAsync(className, methodName, text, LogLevel.SEVERE, exception,
+        dataLogType, stacktrace);
+  }
+
   /// fatal
   ///
   /// Logs 'String' data along with class & function name to hourly based file
@@ -181,6 +326,26 @@ class FLog {
     StackTrace? stacktrace,
   }) async {
     _logThis(className, methodName, text, LogLevel.FATAL, exception,
+        dataLogType, stacktrace);
+  }
+
+  /// fatalAsync
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  static Future<void> fatalAsync({
+    String? className,
+    String? methodName,
+    required String text,
+    dynamic exception,
+    String? dataLogType,
+    StackTrace? stacktrace,
+  }) async {
+    await _logThisAsync(className, methodName, text, LogLevel.FATAL, exception,
         dataLogType, stacktrace);
   }
 
@@ -387,7 +552,6 @@ class FLog {
       dynamic exception,
       String? dataLogType,
       StackTrace? stacktrace) {
-
     // This variable can be ClassName.MethodName or only a function name, when it doesn't belong to a class, e.g. main()
     var member = Trace.current().frames[2].member!;
 
@@ -395,7 +559,7 @@ class FLog {
     //then its already been taken from calling class
     if (className == null) {
       // If there is a . in the member name, it means the method belongs to a class. Thus we can split it.
-      if(member.contains(".")) {
+      if (member.contains(".")) {
         className = member.split(".")[0];
       } else {
         className = "";
@@ -406,7 +570,7 @@ class FLog {
     //then its already been taken from calling class
     if (methodName == null) {
       // If there is a . in the member name, it means the method belongs to a class. Thus we can split it.
-      if(member.contains(".")) {
+      if (member.contains(".")) {
         methodName = member.split(".")[1];
       } else {
         methodName = member;
@@ -415,8 +579,9 @@ class FLog {
 
     // Generate a custom formatted stack trace
     String? formattedStackTrace;
-    if(_config.stackTraceFormatter != null) {
-      formattedStackTrace = _config.stackTraceFormatter!(stacktrace ??  StackTrace.current);
+    if (_config.stackTraceFormatter != null) {
+      formattedStackTrace =
+          _config.stackTraceFormatter!(stacktrace ?? StackTrace.current);
     }
 
     //check to see if user provides a valid configuration and logs are enabled
@@ -442,6 +607,78 @@ class FLog {
     }
   }
 
+  /// _logThis
+  ///
+  /// Asynchronously logs 'String' data along with class & function name to hourly based file
+  /// with formatted timestamps.
+  ///
+  /// @param className    the class name
+  /// @param methodName the method name
+  /// @param text         the text
+  /// @param type         the type
+  static Future<void> _logThisAsync(
+      String? className,
+      String? methodName,
+      String text,
+      LogLevel type,
+      dynamic exception,
+      String? dataLogType,
+      StackTrace? stacktrace) async {
+    // This variable can be ClassName.MethodName or only a function name, when it doesn't belong to a class, e.g. main()
+    var member = Trace.current().frames[2].member!;
+
+    //check to see if className is not provided
+    //then its already been taken from calling class
+    if (className == null) {
+      // If there is a . in the member name, it means the method belongs to a class. Thus we can split it.
+      if (member.contains(".")) {
+        className = member.split(".")[0];
+      } else {
+        className = "";
+      }
+    }
+
+    //check to see if methodName is not provided
+    //then its already been taken from calling class
+    if (methodName == null) {
+      // If there is a . in the member name, it means the method belongs to a class. Thus we can split it.
+      if (member.contains(".")) {
+        methodName = member.split(".")[1];
+      } else {
+        methodName = member;
+      }
+    }
+
+    // Generate a custom formatted stack trace
+    String? formattedStackTrace;
+    if (_config.stackTraceFormatter != null) {
+      formattedStackTrace =
+          _config.stackTraceFormatter!(stacktrace ?? StackTrace.current);
+    }
+
+    //check to see if user provides a valid configuration and logs are enabled
+    //if not then don't do anything
+    if (_isLogsConfigValid()) {
+      //creating log object
+      final log = Log(
+        className: className,
+        methodName: methodName,
+        text: text,
+        logLevel: type,
+        dataLogType: dataLogType,
+        exception: exception.toString(),
+        timestamp: DateTimeUtils.getCurrentTimestamp(_config),
+        timeInMillis: DateTimeUtils.getCurrentTimeInMillis(),
+        stacktrace: formattedStackTrace ?? stacktrace.toString(),
+      );
+
+      //writing it to DB
+      await _writeLogs(log);
+    } else {
+      throw Exception(Constants.EXCEPTION_NOT_INIT);
+    }
+  }
+
   /// _getAllLogs
   ///
   /// This will return the list of logs stored in database
@@ -458,7 +695,8 @@ class FLog {
   /// _getAllSortedByFilter
   ///
   /// This will return the list of logs sorted by provided filters
-  static Future<List<Log>> _getAllSortedByFilter({List<Filter>? filters}) async {
+  static Future<List<Log>> _getAllSortedByFilter(
+      {List<Filter>? filters}) async {
     //check to see if user provides a valid configuration and logs are enabled
     //if not then don't do anything
     if (_isLogsConfigValid()) {
